@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -50,11 +49,14 @@ class MyCustomFormState extends State<MyCustomForm> {
   }
 
   bool _isValidEmail(String email) {
-    return RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(email);
+    return RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+        .hasMatch(email);
   }
 
   bool _isValidPassword(String password) {
-    return password.length >= 6 && RegExp(r'[A-Z]').hasMatch(password) && RegExp(r'\d').hasMatch(password);
+    return password.length >= 6 &&
+        RegExp(r'[A-Z]').hasMatch(password) &&
+        RegExp(r'\d').hasMatch(password);
   }
 
   void _submitForm() {
@@ -155,7 +157,7 @@ class ConfirmationPage extends StatelessWidget {
       appBar: AppBar(title: const Text('Confirmation')),
       body: const Center(
         child: Text(
-          'Signup Successful!',
+          'Congrats! Sign up Successful!',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
