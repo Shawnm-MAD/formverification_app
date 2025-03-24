@@ -37,6 +37,9 @@ class MyCustomFormState extends State<MyCustomForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+bool _isValidEmail(String email) {
+  return RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(email);
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,6 +92,14 @@ class MyCustomFormState extends State<MyCustomForm> {
               TextFormField(
                 controller: _emailController,
                 decoration: const InputDecoration(labelText: 'Email'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter an email address';
+                  } else if (!_isValidEmail(value)) {
+                    return 'Enter a valid email (e.g., user@example.com)';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 10),
               TextFormField(
