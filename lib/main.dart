@@ -51,12 +51,21 @@ class MyCustomFormState extends State<MyCustomForm> {
   }
 }
 
-bool _isValidEmail(String email) {
-  return RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(email);
-}
-bool _isValidPassword(String password) {
-  return password.length >= 6 && RegExp(r'[A-Z]').hasMatch(password) && RegExp(r'\d').hasMatch(password);
-}
+  bool _isValidEmail(String email) {
+    return RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(email);
+  }
+  bool _isValidPassword(String password) {
+    return password.length >= 6 && RegExp(r'[A-Z]').hasMatch(password) && RegExp(r'\d').hasMatch(password);
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ConfirmationPage()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +161,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               const SizedBox(height: 20),
               Center(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: _submitForm,
                   child: const Text('Sign Up'),
                 ),
               ),
@@ -163,3 +172,4 @@ class MyCustomFormState extends State<MyCustomForm> {
     );
   }
 }
+
