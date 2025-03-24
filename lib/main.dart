@@ -40,6 +40,10 @@ class MyCustomFormState extends State<MyCustomForm> {
 bool _isValidEmail(String email) {
   return RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(email);
 }
+bool _isValidPassword(String password) {
+  return password.length >= 6 && RegExp(r'[A-Z]').hasMatch(password) && RegExp(r'\d').hasMatch(password);
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,6 +119,14 @@ class MyCustomFormState extends State<MyCustomForm> {
                 controller: _passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(labelText: 'Password'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a password';
+                  } else if (!_isValidPassword(value)) {
+                    return 'Password must be at least 6 characters, include a number and an uppercase letter';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 20),
               Center(
