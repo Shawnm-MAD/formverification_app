@@ -105,73 +105,76 @@ class MyCustomFormState extends State<MyCustomForm> {
     return Scaffold(
       appBar: AppBar(title: const Text('Signup Page')),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
-              ),
-              const SizedBox(height: 10),
-              TextFormField(
-                controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter an email address';
-                  } else if (!_isValidEmail(value)) {
-                    return 'Enter a valid email (e.g., user@example.com)';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 10),
-              TextFormField(
-                  controller: _dateController,
-                  readOnly: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Date of Birth',
-                    suffixIcon: Icon(Icons.calendar_today),
-                  ),
-                  onTap: () => _selectDate(context),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your date of birth';
-                    }
-                    return null;
-                  },
-                ),
-              const SizedBox(height: 10),
-              TextFormField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(labelText: 'Password'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a password';
-                  } else if (!_isValidPassword(value)) {
-                    return 'Password must be at least 6 characters, include a number and an uppercase letter';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 20),
-              Center(
-                child: ElevatedButton(
-                  onPressed: _submitForm,
-                  child: const Text('Sign Up'),
-                ),
-              ),
-            ],
+  padding: const EdgeInsets.all(16.0),
+  child: Form(
+    key: _formKey,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextFormField(
+          controller: _nameController,
+          decoration: const InputDecoration(labelText: 'Name'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter your name';
+            }
+            return null;
+          },
+        ),
+        const SizedBox(height: 10),
+        TextFormField(
+          controller: _emailController,
+          decoration: const InputDecoration(labelText: 'Email'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter an email address';
+            } else if (!_isValidEmail(value)) {
+              return 'Enter a valid email (e.g., user@example.com)';
+            }
+            return null;
+          },
+        ),
+        const SizedBox(height: 10),
+        TextFormField(
+          controller: _dateController,
+          readOnly: true,
+          decoration: const InputDecoration(
+            labelText: 'Date of Birth',
+            suffixIcon: Icon(Icons.calendar_today),
+          ),
+          onTap: () => _selectDate(context),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter your date of birth';
+            }
+            return null;
+          },
+        ),
+        const SizedBox(height: 10),
+        TextFormField(
+          controller: _passwordController,
+          obscureText: true,
+          decoration: const InputDecoration(labelText: 'Password'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter a password';
+            } else if (!_isValidPassword(value)) {
+              return 'Password must be at least 6 characters, include a number and an uppercase letter';
+            }
+            return null;
+          },
+        ),
+        const SizedBox(height: 20),
+        Center(
+          child: ElevatedButton(
+            onPressed: _submitForm,
+            child: const Text('Sign Up'),
           ),
         ),
-      ),
-    );
-  }
-}
+      ],
+    ),
+  ),
+),
 class ConfirmationPage extends StatelessWidget {
   const ConfirmationPage({super.key});
 
