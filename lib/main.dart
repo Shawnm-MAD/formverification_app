@@ -37,6 +37,20 @@ class MyCustomFormState extends State<MyCustomForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  Future<void> _selectDate(BuildContext context) async {
+  DateTime? picked = await showDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(1900),
+    lastDate: DateTime.now(),
+  );
+  if (picked != null) {
+    setState(() {
+      _dateController.text = "${picked.month}/${picked.day}/${picked.year}";
+    });
+  }
+}
+
 bool _isValidEmail(String email) {
   return RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(email);
 }
@@ -107,13 +121,20 @@ class MyCustomFormState extends State<MyCustomForm> {
               ),
               const SizedBox(height: 10),
               TextFormField(
-                controller: _dateController,
-                readOnly: true,
-                decoration: const InputDecoration(
-                  labelText: 'Date of Birth',
-                  suffixIcon: Icon(Icons.calendar_today),
+                  controller: _dateController,
+                  readOnly: true,
+                  decoration: const InputDecoration(
+                    labelText: 'Date of Birth',
+                    suffixIcon: Icon(Icons.calendar_today),
+                  ),
+                  onTap: () => _selectDate(context),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your date of birth';
+                    }
+                    return null;
+                  },
                 ),
-              ),
               const SizedBox(height: 10),
               TextFormField(
                 controller: _passwordController,
